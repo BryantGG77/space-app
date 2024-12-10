@@ -4,6 +4,7 @@ import Cabecera from "./components/Cabecera"
 import BarraLateral from "./components/BarraLateral"
 import Banner from "./components/Banner"
 import banner from "./assets/banner.png"
+import Galeria from "./components/Galeria"
 function App() {
 
   const FondoGradiente = styled.div`
@@ -24,6 +25,12 @@ function App() {
   gap: 24px;
   `
 
+  const ContenidoGaleria = styled.section`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  `
+
   return (
     <>
       <FondoGradiente>
@@ -32,10 +39,13 @@ function App() {
           <Cabecera />
           <MainContainer>
             <BarraLateral />
-            <Banner texto="La galería más completa del espacio" backgroundImage={banner} />
+            <ContenidoGaleria>
+              <Banner texto="La galería más completa del espacio" backgroundImage={banner} />
+              <Galeria />
+            </ContenidoGaleria>
           </MainContainer>
         </AppContainer>
-      </FondoGradiente>
+      </FondoGradiente >
     </>
   )
 }
