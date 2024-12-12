@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 import Titulo from "../Titulo";
 import Populares from "./Populares";
-import Tag from "./Tags";
 import Imagen from "./Imagen";
 import Tags from "./Tags";
 
