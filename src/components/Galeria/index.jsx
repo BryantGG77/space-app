@@ -4,6 +4,7 @@ import Titulo from "../Titulo";
 import Populares from "./Populares";
 import Tag from "./Tags";
 import Imagen from "./Imagen";
+import Tags from "./Tags";
 
 const GaleriaContainer = styled.div`
 display: flex;
@@ -21,23 +22,22 @@ flex-wrap: wrap;
 gap: 24px;
 `
 
-const Galeria = ({ fotos = [], AlSeleccionarFoto }) => {
+const Galeria = ({ fotos = [], setTag, AlSeleccionarFoto, alAlternarFavorito }) => {
 
 
     return (
         <>
-            <Tag />
+            <Tags setTag={setTag} />
             <GaleriaContainer>
                 <SeccionFluida>
                     <Titulo>Navegue por la galería</Titulo>
 
                     <ImagenesContainer>
                         {
-                            fotos.map(foto => {
-                                return (
-                                    <Imagen AlSolicitarZoom={AlSeleccionarFoto} key={foto.id} foto={foto}></Imagen>
-                                )
-                            })
+                            fotos.map(foto =>
+                                <Imagen alAlternarFavorito={alAlternarFavorito} AlSolicitarZoom={AlSeleccionarFoto} key={foto.id} foto={foto}></Imagen>
+
+                            )
                         }
                     </ImagenesContainer>
                 </SeccionFluida>

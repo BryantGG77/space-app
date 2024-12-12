@@ -37,13 +37,13 @@ gap: 24px;
 justify-content: end;
 `
 
-const Tags = () => {
+const Tags = ({ setTag }) => {
     return <TagsContainer>
 
         <TagTitulo>Buscar por tags: </TagTitulo>
         <Div>
             {tags.map(tag => {
-                return <Tag key={tag.id}>{tag.titulo}</Tag>
+                return <Tag key={tag.id} onClick={() => setTag(tag.id)}>{tag.titulo}</Tag>
             })}
         </Div>
     </TagsContainer>

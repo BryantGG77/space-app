@@ -12,10 +12,10 @@ img {
 }
 `
 
-const Cabecera = () => {
+const Cabecera = ({ setFiltro }) => {
     return <HeaderEstilizado>
         <img className="logo" src="img/logo.png" alt="Logo de Space App" />
-        <CampoTexto />
+        <CampoTexto setFiltro={setFiltro} />
     </HeaderEstilizado>
 }
 

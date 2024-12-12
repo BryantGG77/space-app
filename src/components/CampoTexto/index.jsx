@@ -31,9 +31,9 @@ position: absolute;
     height: 38px;
 `
 
-const CampoTexto = () => {
+const CampoTexto = ({ setFiltro }) => {
     return <ContainerEstilizado>
-        <InputEstilizado type="text" placeholder="¿Qúe estás buscando?" />
+        <InputEstilizado onChange={(evento) => { setFiltro(evento.target.value) }} type="text" placeholder="¿Qué estás buscando?" />
         <IconoLupa src={search} alt="Icono de búsqueda" />
     </ContainerEstilizado>
 }
