@@ -30,6 +30,18 @@ const Figure = styled.figure`
             font-size: 16px;
         }
     }
+
+    @media (min-width: 744px) {
+        width: ${(props) => (props.$expandida ? '100%' : '246px')};
+    }
+
+    @media (min-width: 1200px) {
+    width: ${(props) => (props.$expandida ? '100%' : '460px')};
+    }
+
+    @media (min-width: 1440px) {
+    width: ${(props) => (props.$expandida ? '100%' : '560px')};
+    }
 `;
 
 const Pie = styled.footer`

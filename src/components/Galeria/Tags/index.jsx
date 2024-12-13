@@ -4,9 +4,14 @@ import tags from "./tags.json"
 
 const TagsContainer = styled.section`
 display: flex;
+flex-direction: column;
 align-items: center;
 gap: 64px;
 margin-top: 56px;
+
+@media (min-width: 1200px) {
+    flex-direction: row;
+}
 `
 
 const TagTitulo = styled.h3`
@@ -33,8 +38,10 @@ border: 2px solid transparent;
 
 const Div = styled.div`
 display: flex;
+justify-content: center;
+flex-wrap: wrap;
+width: 100%;
 gap: 24px;
-justify-content: end;
 `
 
 const Tags = ({ setTag }) => {

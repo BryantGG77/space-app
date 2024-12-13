@@ -18,20 +18,29 @@ const FondoGradiente = styled.div`
   `
 
 const AppContainer = styled.div`
-  width: 1440px;
-  max-width: 100%;
+  /* width: 1440px;
+  max-width: 100%; */
+  width: 100%;
   margin: 0 auto;
   `
 
 const MainContainer = styled.main`
   display: flex;
+  flex-direction: column;
   gap: 24px;
+
+  @media (min-width: 744px) {
+    flex-direction: row;
+  }
   `
 
 const ContenidoGaleria = styled.section`
   display: flex;
   flex-direction: column;
+  padding: 0 24px;
   flex-grow: 1;
+
+  
   `
 const App = () => {
   const [fotosDeGaleria, setFotosDeGaleria] = useState(fotos)

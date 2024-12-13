@@ -4,11 +4,18 @@ import CampoTexto from "../CampoTexto";
 
 const HeaderEstilizado = styled.header`
 display: flex;
-padding: 60px 0;
+flex-direction: column;
+padding: 60px 24px;
 justify-content: space-between;
 
 img {
     width: 212px;
+}
+
+@media (min-width: 744px) {
+    flex-direction: row;
+align-items: center;
+
 }
 `
 

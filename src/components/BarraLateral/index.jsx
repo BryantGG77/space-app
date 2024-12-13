@@ -4,7 +4,7 @@ import ItemNavegacion from "./ItemNavegacion"
 
 const ListaEstilizada = styled.ul`
     list-style: none;
-    padding: 0;
+    padding: 0 24px;
     margin: 0;
 `
 

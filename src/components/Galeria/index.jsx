@@ -7,7 +7,13 @@ import Tags from "./Tags";
 
 const GaleriaContainer = styled.div`
 display: flex;
+flex-direction: column;
 gap: 24px;
+width: 100%;
+
+@media (min-width: 744px) {
+    flex-direction: row;
+}
 `
 
 const SeccionFluida = styled.section`
@@ -16,9 +22,19 @@ flex-grow: 1;
 
 const ImagenesContainer = styled.section`
 display: flex;
-justify-content: space-between;
+/* justify-content: space-between; */
+justify-content: center;
 flex-wrap: wrap;
 gap: 24px;
+
+@media (min-width: 1200px) {
+    width: 680px;
+}
+
+@media (min-width: 1440px) {
+    width: 100%;
+    justify-content: space-between;
+}
 `
 
 const Galeria = ({ fotos = [], setTag, AlSeleccionarFoto, alAlternarFavorito }) => {
@@ -29,7 +45,7 @@ const Galeria = ({ fotos = [], setTag, AlSeleccionarFoto, alAlternarFavorito }) 
             <Tags setTag={setTag} />
             <GaleriaContainer>
                 <SeccionFluida>
-                    <Titulo>Navegue por la galería</Titulo>
+                    <Titulo $align="center">Navegue por la galería</Titulo>
 
                     <ImagenesContainer>
                         {

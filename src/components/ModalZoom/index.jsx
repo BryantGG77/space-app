@@ -12,20 +12,26 @@ const Overlay = styled.div`
 `
 
 const DialogEstilizado = styled.dialog`
-    position: absolute;
-    top: 294px;
-    width: 1156px;
+    position: fixed; /* Cambiado de absolute a fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 98%;
     background-color: transparent;
     border: none;
     padding: 0;
     form {
         button {
-            position: relative;
-            bottom: 870px;
-            left: 1090px;
+            position: absolute; /* Ajustado para el botón de cerrar */
+            top: 20px;
+            right: 20px;
         }
     }
-`
+
+    @media (min-width: 876px) {
+        width: 45%;
+    }
+`;
 
 const ModalZoom = ({ foto, alCerrar, alAlternarFavorito }) => {
     return <>

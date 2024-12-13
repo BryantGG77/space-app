@@ -15,11 +15,16 @@ const InputEstilizado = styled.input`
     border-color: #C98CF1;
     background: transparent;
     box-sizing: border-box;
-    width: 566px;
+    /* width: 566px; */
+    width: 100%;
     color: #D9D9D9;
     font-weight: 400;
     font-size: 20px;
     line-height: 20px;
+
+    @media (min-width: 1200px) {
+        width: 566px;
+    }
     
 `
 
