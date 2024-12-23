@@ -47,6 +47,12 @@ const App = () => {
     window.innerWidth >= 744
   );
 
+  const [abrirBarraLateral, setAbrirBarraLateral] = useState(false);
+
+  const handleAbrirBarraLateral = () => {
+    setAbrirBarraLateral(!abrirBarraLateral);
+  };
+
   useEffect(() => {
     const manejarResize = () => {
       setMostrarBarraLateral(window.innerWidth >= 744);
@@ -90,9 +96,10 @@ const App = () => {
     <FondoGradiente>
       <GlobalStyles />
       <AppContainer>
-        <Cabecera filtro={filtro} setFiltro={setFiltro} />
+        <Cabecera filtro={filtro} setFiltro={setFiltro} handleAbrirBarraLateral={handleAbrirBarraLateral} />
         <MainContainer>
           {mostrarBarraLateral && <BarraLateral />}
+          {abrirBarraLateral && <BarraLateral />}
           <ContenidoGaleria>
             <Banner
               backgroundImage={banner}

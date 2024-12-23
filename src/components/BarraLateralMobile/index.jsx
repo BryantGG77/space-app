@@ -32,9 +32,10 @@ div {
     }
 }
 `
-const BarraLateralMobile = () => {
+const BarraLateralMobile = ({ handleAbrirBarraLateral }) => {
+
     return (
-        <Boton>
+        <Boton onClick={handleAbrirBarraLateral}>
             <div></div>
             <div></div>
             <div></div>

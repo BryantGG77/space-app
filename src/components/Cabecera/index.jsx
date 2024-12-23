@@ -30,7 +30,7 @@ align-items: center;
 
 
 
-const Cabecera = ({ setFiltro }) => {
+const Cabecera = ({ setFiltro, handleAbrirBarraLateral }) => {
     const [mostrarBarraMovil, setMostrarBarraMovil] = useState(
         window.innerWidth <= 743
     );
@@ -50,7 +50,7 @@ const Cabecera = ({ setFiltro }) => {
         <section>
             <img className="logo" src="img/logo.png" alt="Logo de Space App" />
 
-            {mostrarBarraMovil && <BarraLateralMobile />}
+            {mostrarBarraMovil && <BarraLateralMobile handleAbrirBarraLateral={handleAbrirBarraLateral} />}
         </section>
         <CampoTexto setFiltro={setFiltro} />
     </HeaderEstilizado>
