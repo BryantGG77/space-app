@@ -4,7 +4,14 @@ import styled from "styled-components";
 
 
 const Columna = styled.section`
-    width: 100%;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+
+@media (min-width: 1440px) {
+        width: 30%;
+    }
 `
 
 const ColumnaFotos = styled.section`
@@ -13,6 +20,7 @@ const ColumnaFotos = styled.section`
     align-items: center;   
     gap: 16px;
     
+   
 `
 
 const Imagen = styled.img`
@@ -24,6 +32,8 @@ const Imagen = styled.img`
     @media (min-width: 744px) {
         width: 340px;
     }
+
+    
     
 `
 
@@ -38,6 +48,11 @@ const Boton = styled.button`
     cursor: pointer;
     width: 100%;
     margin-top: 16px;
+    box-sizing: border-box;
+
+    @media (min-width: 744px) {
+        width: auto;
+    }
 `;
 
 const Populares = () => {

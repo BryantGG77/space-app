@@ -39,6 +39,8 @@ const ContenidoGaleria = styled.section`
 `;
 
 const App = () => {
+
+
   const [fotosDeGaleria, setFotosDeGaleria] = useState(fotos);
   const [filtro, setFiltro] = useState("");
   const [tag, setTag] = useState(0);
@@ -68,7 +70,7 @@ const App = () => {
     const fotosFiltradas = fotos.filter((foto) => {
       const filtroPorTag = !tag || foto.tagId === tag;
       const filtroPorTitulo =
-        !filtro || foto.titulo.toLowerCase().includes(filtro.toLowerCase());
+        !filtro || foto.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(filtro.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""));
       return filtroPorTag && filtroPorTitulo;
     });
     setFotosDeGaleria(fotosFiltradas);

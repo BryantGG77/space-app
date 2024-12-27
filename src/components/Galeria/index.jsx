@@ -13,11 +13,19 @@ width: 100%;
 
 @media (min-width: 744px) {
     flex-direction: row;
+    justify-content: space-between;
 }
 `
 
 const SeccionFluida = styled.section`
 flex-grow: 1;
+
+@media (min-width: 1440px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+}
 `
 
 const ImagenesContainer = styled.section`
@@ -32,7 +40,7 @@ gap: 24px;
 }
 
 @media (min-width: 1440px) {
-    width: 100%;
+    width: 80%;
     justify-content: space-between;
 }
 `

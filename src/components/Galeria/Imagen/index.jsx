@@ -36,11 +36,11 @@ const Figure = styled.figure`
     }
 
     @media (min-width: 1200px) {
-    width: ${(props) => (props.$expandida ? '100%' : '460px')};
+    width: ${(props) => (props.$expandida ? '100%' : '320px')};
     }
 
     @media (min-width: 1440px) {
-    width: ${(props) => (props.$expandida ? '100%' : '560px')};
+    width: ${(props) => (props.$expandida ? '100%' : '380px')};
     }
 `;
 
