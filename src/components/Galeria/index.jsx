@@ -45,7 +45,7 @@ gap: 24px;
 }
 `
 
-const Galeria = ({ fotos = [], setTag, AlSeleccionarFoto, alAlternarFavorito }) => {
+const Galeria = ({ fotos = [], setTag, filtro, AlSeleccionarFoto, alAlternarFavorito }) => {
 
 
     return (
@@ -57,10 +57,13 @@ const Galeria = ({ fotos = [], setTag, AlSeleccionarFoto, alAlternarFavorito }) 
 
                     <ImagenesContainer>
                         {
-                            fotos.map(foto =>
-                                <Imagen alAlternarFavorito={alAlternarFavorito} AlSolicitarZoom={AlSeleccionarFoto} key={foto.id} foto={foto}></Imagen>
+                            fotos.filter(foto => {
+                                return filtro == '' || foto.titulo.toLowerCase().includes(filtro.toLowerCase())
+                            })
+                                .map(foto =>
+                                    <Imagen alAlternarFavorito={alAlternarFavorito} AlSolicitarZoom={AlSeleccionarFoto} key={foto.id} foto={foto}></Imagen>
 
-                            )
+                                )
                         }
                     </ImagenesContainer>
                 </SeccionFluida>

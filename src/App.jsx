@@ -5,10 +5,10 @@ import BarraLateral from "./components/BarraLateral";
 import Banner from "./components/Banner";
 import banner from "./assets/banner.png";
 import Galeria from "./components/Galeria";
-import fotos from "./fotos.json";
 import Pie from "./components/Pie";
 import ModalZoom from "./components/ModalZoom";
 import { useState, useEffect } from "react";
+import { Cargando } from "./components/Cargando";
 
 const FondoGradiente = styled.div`
   background: linear-gradient(175deg, #041833 4.16%, #04244f 48%, #154580 96.76%);
@@ -41,7 +41,7 @@ const ContenidoGaleria = styled.section`
 const App = () => {
 
 
-  const [fotosDeGaleria, setFotosDeGaleria] = useState(fotos);
+  const [fotosDeGaleria, setFotosDeGaleria] = useState([]);
   const [filtro, setFiltro] = useState("");
   const [tag, setTag] = useState(0);
   const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
@@ -55,6 +55,7 @@ const App = () => {
     setAbrirBarraLateral(!abrirBarraLateral);
   };
 
+
   useEffect(() => {
     const manejarResize = () => {
       setMostrarBarraLateral(window.innerWidth >= 744);
@@ -66,15 +67,6 @@ const App = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const fotosFiltradas = fotos.filter((foto) => {
-      const filtroPorTag = !tag || foto.tagId === tag;
-      const filtroPorTitulo =
-        !filtro || foto.titulo.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(filtro.toLocaleLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""));
-      return filtroPorTag && filtroPorTitulo;
-    });
-    setFotosDeGaleria(fotosFiltradas);
-  }, [filtro, tag]);
 
   const alAlternarFavorito = (foto) => {
     if (foto.id === fotoSeleccionada?.id) {
@@ -94,11 +86,23 @@ const App = () => {
     );
   };
 
+  const fotos = async () => {
+    const response = await fetch("https://6748ba9c5801f5153591fb97.mockapi.io/fotos");
+    const data = await response.json();
+    setFotosDeGaleria([...data]);
+  }
+
+
+  useEffect(() => {
+    setTimeout(() => fotos(), 2000);
+  }, []);
+
+
   return (
     <FondoGradiente>
       <GlobalStyles />
       <AppContainer>
-        <Cabecera filtro={filtro} setFiltro={setFiltro} handleAbrirBarraLateral={handleAbrirBarraLateral} />
+        <Cabecera setFiltro={setFiltro} handleAbrirBarraLateral={handleAbrirBarraLateral} />
         <MainContainer>
           {mostrarBarraLateral && <BarraLateral />}
           {abrirBarraLateral && <BarraLateral />}
@@ -107,12 +111,16 @@ const App = () => {
               backgroundImage={banner}
               texto="La galería más completa de fotos del espacio."
             />
-            <Galeria
-              fotos={fotosDeGaleria}
-              AlSeleccionarFoto={(foto) => setFotoSeleccionada(foto)}
-              alAlternarFavorito={alAlternarFavorito}
-              setTag={setTag}
-            />
+            {
+              fotosDeGaleria.length === 0 ? <Cargando></Cargando> :
+                <Galeria
+                  fotos={fotosDeGaleria}
+                  AlSeleccionarFoto={(foto) => setFotoSeleccionada(foto)}
+                  alAlternarFavorito={alAlternarFavorito}
+                  filtro={filtro}
+                  setTag={setTag}
+                />
+            }
           </ContenidoGaleria>
         </MainContainer>
       </AppContainer>
