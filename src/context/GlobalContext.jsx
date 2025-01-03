@@ -2,6 +2,14 @@ import { createContext, useEffect, useState } from "react";
 // eslint-disable-next-line react-refresh/only-export-components
 export const GlobalContext = createContext();
 
+// const initialState = {
+//     filtro: "",
+//     tag: 0,
+//     fotosDeGaleria: [],
+//     fotosFiltradas: [],
+//     fotoSeleccionada: null,
+// }
+
 // eslint-disable-next-line react/prop-types
 const GlobalContextProvider = ({ children }) => {
     const [filtro, setFiltro] = useState("");
@@ -9,6 +17,14 @@ const GlobalContextProvider = ({ children }) => {
     const [fotosDeGaleria, setFotosDeGaleria] = useState([]);
     const [fotosFiltradas, setFotosFiltradas] = useState([]);
     const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
+
+    const [mostrarBarraLateral, setMostrarBarraLateral] = useState(
+        window.innerWidth >= 744
+    );
+
+    const [abrirBarraLateral, setAbrirBarraLateral] = useState(false);
+
+
 
     useEffect(() => {
         const aplicarFiltro = () => {
@@ -62,6 +78,10 @@ const GlobalContextProvider = ({ children }) => {
                 setFotoSeleccionada,
                 alAlternarFavorito,
                 tag,
+                mostrarBarraLateral,
+                setMostrarBarraLateral,
+                abrirBarraLateral,
+                setAbrirBarraLateral
             }}
         >
             {children}

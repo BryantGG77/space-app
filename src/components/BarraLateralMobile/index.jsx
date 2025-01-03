@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { GlobalContext } from "../../context/GlobalContext";
 
@@ -36,7 +36,18 @@ div {
 `
 const BarraLateralMobile = () => {
 
-    const { abrirBarraLateral, setAbrirBarraLateral } = useContext(GlobalContext);
+    const { abrirBarraLateral, setAbrirBarraLateral, setMostrarBarraLateral } = useContext(GlobalContext);
+
+    useEffect(() => {
+        const manejarResize = () => {
+            setMostrarBarraLateral(window.innerWidth >= 744);
+        };
+
+        window.addEventListener("resize", manejarResize);
+        return () => {
+            window.removeEventListener("resize", manejarResize);
+        };
+    }, [setMostrarBarraLateral]);
 
     const handleAbrirBarraLateral = () => {
         setAbrirBarraLateral(!abrirBarraLateral);

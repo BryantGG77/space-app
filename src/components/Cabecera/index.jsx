@@ -39,7 +39,6 @@ const Cabecera = () => {
     );
 
 
-
     useEffect(() => {
         const manejarResize = () => {
             setMostrarBarraMovil(window.innerWidth <= 743);

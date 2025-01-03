@@ -7,8 +7,8 @@ import banner from "./assets/banner.png";
 import Galeria from "./components/Galeria";
 import Pie from "./components/Pie";
 import ModalZoom from "./components/ModalZoom";
-import GlobalContextProvider from "./context/GlobalContext";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { GlobalContext } from "./context/GlobalContext";
 
 
 const FondoGradiente = styled.div`
@@ -41,50 +41,28 @@ const ContenidoGaleria = styled.section`
 
 const App = () => {
 
-  const [mostrarBarraLateral, setMostrarBarraLateral] = useState(
-    window.innerWidth >= 744
-  );
-
-  const [abrirBarraLateral, setAbrirBarraLateral] = useState(false);
-
-  const handleAbrirBarraLateral = () => {
-    setAbrirBarraLateral(!abrirBarraLateral);
-  };
-  useEffect(() => {
-    const manejarResize = () => {
-      setMostrarBarraLateral(window.innerWidth >= 744);
-    };
-
-    window.addEventListener("resize", manejarResize);
-    return () => {
-      window.removeEventListener("resize", manejarResize);
-    };
-  }, []);
+  const { mostrarBarraLateral, abrirBarraLateral } = useContext(GlobalContext);
 
   return (
     <FondoGradiente>
-      <GlobalContextProvider>
-
-        <GlobalStyles />
-        <AppContainer>
-          <Cabecera handleAbrirBarraLateral={handleAbrirBarraLateral} />
-          <MainContainer>
-            {mostrarBarraLateral && <BarraLateral />}
-            {abrirBarraLateral && <BarraLateral />}
-            <ContenidoGaleria>
-              <Banner
-                backgroundImage={banner}
-                texto="La galería más completa de fotos del espacio."
-              />
-              <Galeria />
-
-            </ContenidoGaleria>
-          </MainContainer>
-        </AppContainer>
-        <ModalZoom
-        />
-        <Pie />
-      </GlobalContextProvider>
+      <GlobalStyles />
+      <AppContainer>
+        <Cabecera />
+        <MainContainer>
+          {mostrarBarraLateral && <BarraLateral />}
+          {abrirBarraLateral && <BarraLateral />}
+          <ContenidoGaleria>
+            <Banner
+              backgroundImage={banner}
+              texto="La galería más completa de fotos del espacio."
+            />
+            <Galeria />
+          </ContenidoGaleria>
+        </MainContainer>
+      </AppContainer>
+      <ModalZoom
+      />
+      <Pie />
     </FondoGradiente>
   );
 };
