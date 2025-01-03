@@ -1,12 +1,15 @@
 import styled from "styled-components"
 import tags from "./tags.json"
+import { useContext } from "react"
+import { GlobalContext } from "../../../context/GlobalContext"
 
 
 const TagsContainer = styled.section`
 display: flex;
 flex-direction: column;
 align-items: center;
-gap: 64px;
+justify-content: center;
+gap: 20px;
 margin-top: 56px;
 
 @media (min-width: 1200px) {
@@ -18,6 +21,10 @@ const TagTitulo = styled.h3`
 font-size: 24px;
 color: #D9D9D9;
 margin: 0;
+
+@media (min-width: 1200px) {
+    width: 20%;
+}
 `
 
 const Tag = styled.button`
@@ -42,9 +49,16 @@ justify-content: center;
 flex-wrap: wrap;
 width: 100%;
 gap: 24px;
+
+
+@media (min-width: 1200px) {
+    justify-content: flex-start;
+}
 `
 
-const Tags = ({ setTag }) => {
+const Tags = () => {
+
+    const { setTag } = useContext(GlobalContext);
     return <TagsContainer>
 
         <TagTitulo>Buscar por tags: </TagTitulo>

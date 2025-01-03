@@ -4,6 +4,10 @@ import Titulo from "../Titulo";
 import Populares from "./Populares";
 import Imagen from "./Imagen";
 import Tags from "./Tags";
+import Cargando from "../Cargando";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
+
 
 const GaleriaContainer = styled.div`
 display: flex;
@@ -45,31 +49,32 @@ gap: 24px;
 }
 `
 
-const Galeria = ({ fotos = [], setTag, filtro, AlSeleccionarFoto, alAlternarFavorito }) => {
+const Galeria = () => {
 
-
+    const { fotosDeGaleria, filtro, alAlternarFavorito, setFotoSeleccionada } = useContext(GlobalContext);
     return (
-        <>
-            <Tags setTag={setTag} />
-            <GaleriaContainer>
-                <SeccionFluida>
-                    <Titulo $align="center">Navegue por la galería</Titulo>
+        fotosDeGaleria.length === 0 ? <Cargando></Cargando> :
+            <>
+                <Tags />
+                <GaleriaContainer>
+                    <SeccionFluida>
+                        <Titulo $align="center">Navegue por la galería</Titulo>
 
-                    <ImagenesContainer>
-                        {
-                            fotos.filter(foto => {
-                                return filtro == '' || foto.titulo.toLowerCase().includes(filtro.toLowerCase())
-                            })
-                                .map(foto =>
-                                    <Imagen alAlternarFavorito={alAlternarFavorito} AlSolicitarZoom={AlSeleccionarFoto} key={foto.id} foto={foto}></Imagen>
+                        <ImagenesContainer>
+                            {
+                                fotosDeGaleria.filter(foto => {
+                                    return filtro == '' || foto.titulo.toLowerCase().includes(filtro.toLowerCase())
+                                })
+                                    .map(foto =>
+                                        <Imagen alAlternarFavorito={alAlternarFavorito} AlSolicitarZoom={foto => { setFotoSeleccionada(foto) }} key={foto.id} foto={foto}></Imagen>
 
-                                )
-                        }
-                    </ImagenesContainer>
-                </SeccionFluida>
-                <Populares />
-            </GaleriaContainer>
-        </>
+                                    )
+                            }
+                        </ImagenesContainer>
+                    </SeccionFluida>
+                    <Populares />
+                </GaleriaContainer>
+            </>
     )
 }
 

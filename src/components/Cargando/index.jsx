@@ -23,3 +23,5 @@ export const Cargando = () => {
         </Div>
     )
 }
+
+export default Cargando;

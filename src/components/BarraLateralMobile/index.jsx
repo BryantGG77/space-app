@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Boton = styled.button`
 display: flex;
@@ -32,7 +34,13 @@ div {
     }
 }
 `
-const BarraLateralMobile = ({ handleAbrirBarraLateral }) => {
+const BarraLateralMobile = () => {
+
+    const { abrirBarraLateral, setAbrirBarraLateral } = useContext(GlobalContext);
+
+    const handleAbrirBarraLateral = () => {
+        setAbrirBarraLateral(!abrirBarraLateral);
+    };
 
     return (
         <Boton onClick={handleAbrirBarraLateral}>

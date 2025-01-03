@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import CampoTexto from "../CampoTexto";
 import BarraLateralMobile from "../BarraLateralMobile";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 
 const HeaderEstilizado = styled.header`
@@ -30,10 +31,14 @@ align-items: center;
 
 
 
-const Cabecera = ({ setFiltro, handleAbrirBarraLateral }) => {
+const Cabecera = () => {
+
+    const { setFiltro } = useContext(GlobalContext);
     const [mostrarBarraMovil, setMostrarBarraMovil] = useState(
         window.innerWidth <= 743
     );
+
+
 
     useEffect(() => {
         const manejarResize = () => {
@@ -50,7 +55,7 @@ const Cabecera = ({ setFiltro, handleAbrirBarraLateral }) => {
         <section>
             <img className="logo" src="img/logo.png" alt="Logo de Space App" />
 
-            {mostrarBarraMovil && <BarraLateralMobile handleAbrirBarraLateral={handleAbrirBarraLateral} />}
+            {mostrarBarraMovil && <BarraLateralMobile />}
         </section>
         <CampoTexto setFiltro={setFiltro} />
     </HeaderEstilizado>

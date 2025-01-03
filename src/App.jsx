@@ -7,8 +7,9 @@ import banner from "./assets/banner.png";
 import Galeria from "./components/Galeria";
 import Pie from "./components/Pie";
 import ModalZoom from "./components/ModalZoom";
-import { useState, useEffect } from "react";
-import { Cargando } from "./components/Cargando";
+import GlobalContextProvider from "./context/GlobalContext";
+import { useEffect, useState } from "react";
+
 
 const FondoGradiente = styled.div`
   background: linear-gradient(175deg, #041833 4.16%, #04244f 48%, #154580 96.76%);
@@ -40,11 +41,6 @@ const ContenidoGaleria = styled.section`
 
 const App = () => {
 
-
-  const [fotosDeGaleria, setFotosDeGaleria] = useState([]);
-  const [filtro, setFiltro] = useState("");
-  const [tag, setTag] = useState(0);
-  const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
   const [mostrarBarraLateral, setMostrarBarraLateral] = useState(
     window.innerWidth >= 744
   );
@@ -54,8 +50,6 @@ const App = () => {
   const handleAbrirBarraLateral = () => {
     setAbrirBarraLateral(!abrirBarraLateral);
   };
-
-
   useEffect(() => {
     const manejarResize = () => {
       setMostrarBarraLateral(window.innerWidth >= 744);
@@ -67,69 +61,30 @@ const App = () => {
     };
   }, []);
 
-
-  const alAlternarFavorito = (foto) => {
-    if (foto.id === fotoSeleccionada?.id) {
-      setFotoSeleccionada({
-        ...fotoSeleccionada,
-        favorita: !fotoSeleccionada.favorita,
-      });
-    }
-    setFotosDeGaleria(
-      fotosDeGaleria.map((fotoDeGaleria) => {
-        return {
-          ...fotoDeGaleria,
-          favorita:
-            fotoDeGaleria.id === foto.id ? !foto.favorita : fotoDeGaleria.favorita,
-        };
-      })
-    );
-  };
-
-  const fotos = async () => {
-    const response = await fetch("https://6748ba9c5801f5153591fb97.mockapi.io/fotos");
-    const data = await response.json();
-    setFotosDeGaleria([...data]);
-  }
-
-
-  useEffect(() => {
-    setTimeout(() => fotos(), 2000);
-  }, []);
-
-
   return (
     <FondoGradiente>
-      <GlobalStyles />
-      <AppContainer>
-        <Cabecera setFiltro={setFiltro} handleAbrirBarraLateral={handleAbrirBarraLateral} />
-        <MainContainer>
-          {mostrarBarraLateral && <BarraLateral />}
-          {abrirBarraLateral && <BarraLateral />}
-          <ContenidoGaleria>
-            <Banner
-              backgroundImage={banner}
-              texto="La galería más completa de fotos del espacio."
-            />
-            {
-              fotosDeGaleria.length === 0 ? <Cargando></Cargando> :
-                <Galeria
-                  fotos={fotosDeGaleria}
-                  AlSeleccionarFoto={(foto) => setFotoSeleccionada(foto)}
-                  alAlternarFavorito={alAlternarFavorito}
-                  filtro={filtro}
-                  setTag={setTag}
-                />
-            }
-          </ContenidoGaleria>
-        </MainContainer>
-      </AppContainer>
-      <ModalZoom
-        foto={fotoSeleccionada}
-        alCerrar={() => setFotoSeleccionada(null)}
-        alAlternarFavorito={alAlternarFavorito}
-      />
-      <Pie />
+      <GlobalContextProvider>
+
+        <GlobalStyles />
+        <AppContainer>
+          <Cabecera handleAbrirBarraLateral={handleAbrirBarraLateral} />
+          <MainContainer>
+            {mostrarBarraLateral && <BarraLateral />}
+            {abrirBarraLateral && <BarraLateral />}
+            <ContenidoGaleria>
+              <Banner
+                backgroundImage={banner}
+                texto="La galería más completa de fotos del espacio."
+              />
+              <Galeria />
+
+            </ContenidoGaleria>
+          </MainContainer>
+        </AppContainer>
+        <ModalZoom
+        />
+        <Pie />
+      </GlobalContextProvider>
     </FondoGradiente>
   );
 };
