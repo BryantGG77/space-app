@@ -51,7 +51,7 @@ gap: 24px;
 
 const Galeria = () => {
 
-    const { fotosDeGaleria, filtro, alAlternarFavorito, setFotoSeleccionada } = useContext(GlobalContext);
+    const { fotosDeGaleria, filtro, alAlternarFavorito, setFotoSeleccionada, fotosFiltradas } = useContext(GlobalContext);
     return (
         fotosDeGaleria.length === 0 ? <Cargando></Cargando> :
             <>
@@ -62,7 +62,7 @@ const Galeria = () => {
 
                         <ImagenesContainer>
                             {
-                                fotosDeGaleria.filter(foto => {
+                                fotosFiltradas.filter(foto => {
                                     return filtro == '' || foto.titulo.toLowerCase().includes(filtro.toLowerCase())
                                 })
                                     .map(foto =>

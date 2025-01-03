@@ -59,6 +59,7 @@ gap: 24px;
 const Tags = () => {
 
     const { setTag } = useContext(GlobalContext);
+
     return <TagsContainer>
 
         <TagTitulo>Buscar por tags: </TagTitulo>
