@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import search from "./search.png"
-import { useRef } from "react"
+import { useContext, useRef } from "react"
+import { GlobalContext } from "../../context/GlobalContext"
 
 
 const ContainerEstilizado = styled.section`
@@ -38,13 +39,15 @@ position: absolute;
     cursor: pointer;
 `
 
-const CampoTexto = ({ setFiltro }) => {
+const CampoTexto = () => {
+
+    const { dispatch } = useContext(GlobalContext);
 
     const cajaConsulta = useRef(null);
     return <ContainerEstilizado>
         <InputEstilizado ref={cajaConsulta} type="text" placeholder="¿Qué estás buscando?" />
         <IconoLupa src={search} alt="Icono de búsqueda" onClick={() => {
-            setFiltro(cajaConsulta.current.value)
+            dispatch({ type: 'SET_FILTRO', payload: cajaConsulta.current.value })
         }} />
     </ContainerEstilizado>
 }

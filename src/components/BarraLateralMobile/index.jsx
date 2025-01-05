@@ -36,21 +36,26 @@ div {
 `
 const BarraLateralMobile = () => {
 
-    const { abrirBarraLateral, setAbrirBarraLateral, setMostrarBarraLateral } = useContext(GlobalContext);
+    // const { abrirBarraLateral, setAbrirBarraLateral, setMostrarBarraLateral } = useContext(GlobalContext);
+
+    const { state, dispatch } = useContext(GlobalContext);
+
 
     useEffect(() => {
         const manejarResize = () => {
-            setMostrarBarraLateral(window.innerWidth >= 744);
+            // setMostrarBarraLateral(window.innerWidth >= 744)
+            dispatch({ type: 'SET_MOSTRAR_BARRA_LATERAL', payload: window.innerWidth >= 744 });
         };
 
         window.addEventListener("resize", manejarResize);
         return () => {
             window.removeEventListener("resize", manejarResize);
         };
-    }, [setMostrarBarraLateral]);
+    }, [dispatch]);
 
     const handleAbrirBarraLateral = () => {
-        setAbrirBarraLateral(!abrirBarraLateral);
+        // setAbrirBarraLateral(!abrirBarraLateral)
+        dispatch({ type: 'SET_ABRIR_BARRA_LATERAL', payload: !state.abrirBarraLateral });
     };
 
     return (

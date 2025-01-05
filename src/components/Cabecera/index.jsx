@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import CampoTexto from "../CampoTexto";
 import BarraLateralMobile from "../BarraLateralMobile";
-import { useState, useEffect, useContext } from "react";
-import { GlobalContext } from "../../context/GlobalContext";
+import { useState, useEffect } from "react";
 
 
 const HeaderEstilizado = styled.header`
@@ -33,7 +32,6 @@ align-items: center;
 
 const Cabecera = () => {
 
-    const { setFiltro } = useContext(GlobalContext);
     const [mostrarBarraMovil, setMostrarBarraMovil] = useState(
         window.innerWidth <= 743
     );
@@ -56,7 +54,7 @@ const Cabecera = () => {
 
             {mostrarBarraMovil && <BarraLateralMobile />}
         </section>
-        <CampoTexto setFiltro={setFiltro} />
+        <CampoTexto />
     </HeaderEstilizado>
 }
 

@@ -58,14 +58,15 @@ gap: 24px;
 
 const Tags = () => {
 
-    const { setTag } = useContext(GlobalContext);
+    const { dispatch } = useContext(GlobalContext);
 
     return <TagsContainer>
 
         <TagTitulo>Buscar por tags: </TagTitulo>
         <Div>
             {tags.map(tag => {
-                return <Tag key={tag.id} onClick={() => setTag(tag.id)}>{tag.titulo}</Tag>
+                return <Tag key={tag.id} onClick={() =>
+                    dispatch({ type: 'SET_TAG', payload: tag.id })}>{tag.titulo}</Tag>
             })}
         </Div>
     </TagsContainer>

@@ -1,65 +1,92 @@
-import { createContext, useEffect, useState } from "react";
-// eslint-disable-next-line react-refresh/only-export-components
+import { createContext, useEffect, useReducer } from "react";
+
 export const GlobalContext = createContext();
 
-// const initialState = {
-//     filtro: "",
-//     tag: 0,
-//     fotosDeGaleria: [],
-//     fotosFiltradas: [],
-//     fotoSeleccionada: null,
-// }
+
+const initialState = {
+    filtro: "",
+    tag: 0,
+    fotosDeGaleria: [],
+    fotosFiltradas: [],
+    fotoSeleccionada: null,
+    mostrarBarraLateral: window.innerWidth >= 744,
+    abrirBarraLateral: false,
+}
+
+const reducer = (state, action) => {
+    switch (action.type) {
+
+        case 'SET_FILTRO':
+            return { ...state, filtro: action.payload };
+        case 'SET_TAG':
+            return { ...state, tag: action.payload };
+        case 'SET_FOTOS_DE_GALERIA':
+            return { ...state, fotosDeGaleria: action.payload };
+        case 'SET_FOTOS_FILTRADAS':
+            return { ...state, fotosFiltradas: action.payload };
+        case 'SET_FOTO_SELECCIONADA':
+            return { ...state, fotoSeleccionada: action.payload };
+        case 'SET_MOSTRAR_BARRA_LATERAL':
+            return { ...state, mostrarBarraLateral: action.payload };
+        case 'SET_ABRIR_BARRA_LATERAL':
+            return { ...state, abrirBarraLateral: action.payload };
+        case 'AL_ALTERNAR_FAVORITO': {
+            const fotosDeGaleria = state.fotosDeGaleria.map((fotoDeGaleria) => {
+                return {
+                    ...fotoDeGaleria,
+                    favorita:
+                        fotoDeGaleria.id === action.payload.id ? !action.payload.favorita : fotoDeGaleria.favorita,
+                }
+            });
+
+            if (action.payload.id === state.fotoSeleccionada?.id) {
+                return {
+                    ...state,
+                    fotosDeGaleria: fotosDeGaleria,
+                    fotoSeleccionada: {
+                        ...state.fotoSeleccionada, favorita: !state.fotoSeleccionada.favorita
+                    }
+                };
+            } else {
+                return {
+                    ...state,
+                    fotosDeGaleria: fotosDeGaleria,
+
+                };
+            }
+        }
+        default:
+            return state;
+    }
+}
 
 // eslint-disable-next-line react/prop-types
 const GlobalContextProvider = ({ children }) => {
-    const [filtro, setFiltro] = useState("");
-    const [tag, setTag] = useState(0);
-    const [fotosDeGaleria, setFotosDeGaleria] = useState([]);
-    const [fotosFiltradas, setFotosFiltradas] = useState([]);
-    const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
 
-    const [mostrarBarraLateral, setMostrarBarraLateral] = useState(
-        window.innerWidth >= 744
-    );
-
-    const [abrirBarraLateral, setAbrirBarraLateral] = useState(false);
-
+    const [state, dispatch] = useReducer(reducer, initialState);
 
 
     useEffect(() => {
         const aplicarFiltro = () => {
-            const filtradas = fotosDeGaleria.filter((foto) => {
-                const filtroPorTag = !tag || foto.tagId === tag;
-                const filtroPorTitulo = !filtro || foto.titulo.toLowerCase().includes(filtro.toLowerCase());
+            const filtradas = state.fotosDeGaleria.filter((foto) => {
+                const filtroPorTag = !state.tag || foto.tagId === state.tag;
+                const filtroPorTitulo = !state.filtro || foto.titulo.toLowerCase().includes(state.filtro.toLowerCase());
                 return filtroPorTag && filtroPorTitulo;
             });
-            setFotosFiltradas(filtradas);
+            dispatch({ type: 'SET_FOTOS_FILTRADAS', payload: filtradas });
         };
 
         aplicarFiltro();
-    }, [filtro, tag, fotosDeGaleria]);
+    }, [state.filtro, state.tag, state.fotosDeGaleria]);
 
-    const alAlternarFavorito = (foto) => {
-        if (foto.id === fotoSeleccionada?.id) {
-            setFotoSeleccionada({
-                ...fotoSeleccionada,
-                favorita: !fotoSeleccionada.favorita,
-            });
-        }
-        setFotosDeGaleria(
-            fotosDeGaleria.map((fotoDeGaleria) => ({
-                ...fotoDeGaleria,
-                favorita:
-                    fotoDeGaleria.id === foto.id ? !foto.favorita : fotoDeGaleria.favorita,
-            }))
-        );
-    };
+
 
     const cargarFotos = async () => {
         const response = await fetch("https://6748ba9c5801f5153591fb97.mockapi.io/fotos");
         const data = await response.json();
-        setFotosDeGaleria([...data]);
-        setFotosFiltradas([...data]); // Inicializa las fotos filtradas con todas las fotos.
+        dispatch({ type: 'SET_FOTOS_DE_GALERIA', payload: data });
+        dispatch({ type: 'SET_FOTOS_FILTRADAS', payload: data });
+
     };
 
     useEffect(() => {
@@ -68,21 +95,11 @@ const GlobalContextProvider = ({ children }) => {
 
     return (
         <GlobalContext.Provider
-            value={{
-                filtro,
-                setFiltro,
-                setTag,
-                fotosDeGaleria,
-                fotosFiltradas,
-                fotoSeleccionada,
-                setFotoSeleccionada,
-                alAlternarFavorito,
-                tag,
-                mostrarBarraLateral,
-                setMostrarBarraLateral,
-                abrirBarraLateral,
-                setAbrirBarraLateral
-            }}
+            value={
+                {
+                    state, dispatch
+                }
+            }
         >
             {children}
         </GlobalContext.Provider>

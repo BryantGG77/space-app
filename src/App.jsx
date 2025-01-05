@@ -41,16 +41,16 @@ const ContenidoGaleria = styled.section`
 
 const App = () => {
 
-  const { mostrarBarraLateral, abrirBarraLateral } = useContext(GlobalContext);
 
+  const { state } = useContext(GlobalContext);
   return (
     <FondoGradiente>
       <GlobalStyles />
       <AppContainer>
         <Cabecera />
         <MainContainer>
-          {mostrarBarraLateral && <BarraLateral />}
-          {abrirBarraLateral && <BarraLateral />}
+          {state.mostrarBarraLateral && <BarraLateral />}
+          {state.abrirBarraLateral && <BarraLateral />}
           <ContenidoGaleria>
             <Banner
               backgroundImage={banner}
