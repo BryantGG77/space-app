@@ -49,8 +49,7 @@ const App = () => {
       <AppContainer>
         <Cabecera />
         <MainContainer>
-          {state.mostrarBarraLateral && <BarraLateral />}
-          {state.abrirBarraLateral && <BarraLateral />}
+          {state.abrirBarraLateral || state.mostrarBarraLateral ? <BarraLateral /> : null}
           <ContenidoGaleria>
             <Banner
               backgroundImage={banner}
