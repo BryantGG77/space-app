@@ -11,6 +11,7 @@ const initialState = {
     fotoSeleccionada: null,
     mostrarBarraLateral: window.innerWidth >= 744,
     abrirBarraLateral: false,
+    modalAbierto: false,
 }
 
 const reducer = (state, action) => {
@@ -25,7 +26,11 @@ const reducer = (state, action) => {
         case 'SET_FOTOS_FILTRADAS':
             return { ...state, fotosFiltradas: action.payload };
         case 'SET_FOTO_SELECCIONADA':
-            return { ...state, fotoSeleccionada: action.payload };
+            return {
+                ...state,
+                fotoSeleccionada: action.payload,
+                modalAbierto: action.payload != null ? true : false
+            };
         case 'SET_MOSTRAR_BARRA_LATERAL':
             return { ...state, mostrarBarraLateral: action.payload };
         case 'SET_ABRIR_BARRA_LATERAL':
