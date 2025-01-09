@@ -87,7 +87,7 @@ const GlobalContextProvider = ({ children }) => {
 
 
     const cargarFotos = async () => {
-        const response = await fetch("https://6748ba9c5801f5153591fb97.mockapi.io/fotos");
+        const response = await fetch("https://my-json-server.typicode.com/BryantGG77/space-app-api/fotos");
         const data = await response.json();
         dispatch({ type: 'SET_FOTOS_DE_GALERIA', payload: data });
         dispatch({ type: 'SET_FOTOS_FILTRADAS', payload: data });
