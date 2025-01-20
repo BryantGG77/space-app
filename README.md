@@ -57,5 +57,5 @@ Sigue estos pasos para clonar y ejecutar el proyecto en tu máquina local:
 
 Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
 
-- **brayespro@gmail.com**
+- **brayanvr.dev@gmail.com**
 - **BryantGG77**
